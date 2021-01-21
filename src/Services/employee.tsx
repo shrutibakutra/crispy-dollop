@@ -21,7 +21,6 @@ export default () => ({
                 method:'GET',
             };
             const response = await request(`/getAll/employee`,options);
-            console.log("-----",response)
             return response;
         } catch(error){
             throw error;

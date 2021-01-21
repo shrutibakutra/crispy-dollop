@@ -2,7 +2,6 @@ import request from '../utils/request';
 
 export default () => ({
     async createCompany(data:any){
-        console.log('------')
         try{
             const options ={
                 method:'POST',
@@ -45,7 +44,6 @@ export default () => ({
         }
     },
     async getCompany(){
-        console.log('------')
         try{
             const options ={
                 method:'GET',

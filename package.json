@@ -29,7 +29,9 @@
     "eslintConfig": {
         "extends": "react-app",
         "no-unused-expressions": "off",
-        "@typescript-eslint/no-unused-expressions": ["error"]
+        "@typescript-eslint/no-unused-expressions": [
+            "error"
+        ]
     },
     "browserslist": {
         "production": [
