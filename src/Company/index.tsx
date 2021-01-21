@@ -5,10 +5,10 @@ import companyService from '../Services/company'
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import CompanyList from '../CompanyList/index'
-import { NavLink, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 
 
-const Company = (props: any,{ history, match }:any) => {
+const Company = (props: any, { history, match }: any) => {
     // console.log("****")
     const { id } = props.match.params;
 
@@ -20,9 +20,9 @@ const Company = (props: any,{ history, match }:any) => {
             websitelink: ''
 
         },
-        onSubmit: values => {        
-                alert(JSON.stringify(values, null, 2));
-                createCompany(values)
+        onSubmit: values => {
+            alert(JSON.stringify(values, null, 2));
+            createCompany(values)
         },
 
     });
@@ -46,14 +46,18 @@ const Company = (props: any,{ history, match }:any) => {
         }
     }
 
-    const  handlePassData= async ()=>{
+    //passing companyId to create new employee 
+    const handlePassData = async () => {
         let response = await service.getCompany()
-        console.log("companyData",response[response.length-1])
-        let companyId = response[response.length-1]._id
-        props.history.push('/employees',{ companyId:companyId})
+        let companyId = response[response.length - 1]._id
+        props.history.push('/employees', { companyId: companyId }) //passes companyId to employee component
     }
 
-  
+    const handleFileUpload = (event:any)=>{
+        
+    }
+
+
 
     return (
         <div>
@@ -68,40 +72,30 @@ const Company = (props: any,{ history, match }:any) => {
                         <span style={styles.text}>Email:</span>
                         <Form.Control name="email" type="email" style={styles.input} onChange={formik.handleChange} />
                     </div>
-                    {/* <div>
-                    <span>Co Name:</span>
-                        <Field name="company" type="company" />
-                    </div> */}
+
                     <div style={styles.fields}>
                         <span style={styles.text}>Logo:</span>
-                        <Form.Control name="logo" type="logo" style={styles.input} onChange={formik.handleChange} />
+                        <Form.Control id="file" name="logo" type="file" style={styles.input} onChange={formik.handleChange} className="form-control" />
                     </div>
                     <div style={styles.fields}>
                         <span style={styles.text}>Website:</span>
                         <Form.Control name="websitelink" type="website" style={styles.input} onChange={formik.handleChange} />
                     </div>
-                    {/* <Link to={'/employees'}> */}
-
                     <Button
-                    
                         style={styles.button}
                         type="submit"
                         onClick={() => formik.handleSubmit}
                     >Add and Next</Button>
-                    {/* </Link> */}
 
                     <Link to={'/employees'}>
                         <Button
                             style={styles.button}
-                            // type="submit"
-                            // onClick={handlePassData}
+                       
                         > Employees</Button>
                     </Link>
                 </div>
             </form>
-            <CompanyList/>
-          
-           
+            <CompanyList />
         </div>
 
     )
@@ -113,6 +107,6 @@ const styles = {
     fields: { height: '100%', width: '100%', marginBottom: '10px' },
     text: { marginRight: '10px' },
     input: { height: '100%', width: '20%' },
-    button: { color:'white',marginLeft:10 }
+    button: { color: 'white', marginLeft: 10 }
 }
 

@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import Table from 'react-bootstrap/Table';
 import employeeService from '../Services/employee'
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { Link } from 'react-router-dom';
+
 
 const Datatable = () => {
     const service = employeeService()
@@ -24,10 +26,13 @@ const Datatable = () => {
 
     return (
         <div>
+            <div style={{width:'100%'}}>
             <h1 style={{margin:20}}>Companies and Employees</h1>
+            <Link to="/companies">
+            <button style={{float:'right',marginRight:30,marginBottom:10}}>Go to Companies</button>
+            </Link>
+            </div>
             <div style={{margin:30}}>
-                
-
                 <Table striped bordered hover>
                     <thead>
                         <tr>
@@ -39,19 +44,15 @@ const Datatable = () => {
                             <th style={{borderBottom:'1px solid #ccc'}}>Phone</th>
                         </tr>
                     </thead>
-                    {emloyees.map((row: any,index:any) =>
-                
+                    {emloyees.map((row: any,index:any) =>           
                         <tbody >         
                             <tr>                        
-                                <td>{row.companyDetail.name}</td>
+                                <td>{row.companyDetail[0]?row.companyDetail[0].name:''}</td>
                                 <td>{index+1}</td>
                                 <td>{row.firstName}</td>
                                 <td>{row.lastName}</td>
                                 <td>{row.email}</td>
                                 <td>{row.phone}</td>
-                                <button> Update</button>
-                                <button> Delete</button>
-                             
                             </tr>
                         </tbody>
                     
