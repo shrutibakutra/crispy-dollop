@@ -4,6 +4,7 @@ import companyService from '../Services/company'
 import Form from 'react-bootstrap/Form';
 import { useFormik } from "formik";
 import Table from 'react-bootstrap/Table';
+import Button from 'react-bootstrap/Button';
 
 
 const Employees = (props: any) => {
@@ -250,15 +251,15 @@ const Employees = (props: any) => {
                             onChange={formik.handleChange}
                         />
                     </div>
-                    <button style={styles.button} type="submit">Submit</button>
+                    <Button variant="success" style={styles.button} type="submit">Submit</Button>
                 </form>
 
             }
 
             <div>
                 <div style={styles.buttons}>
-                    <button style={styles.update} onClick={() => handleChange()}> Update</button>
-                    <button style={styles.delete} onClick={() => handleDelete()}> Delete</button>
+                <Button variant="warning" style={styles.update} onClick={() => handleChange()}> Update</Button>
+                    <Button variant="danger" style={styles.delete} onClick={() => handleDelete()}> Delete</Button>
                 </div>
                 <Table striped bordered hover style={{ width: '50%', marginTop: '50px' }}>
                     <thead style={{ width: '50%' }}>
@@ -303,9 +304,8 @@ const styles = {
     fields: { height: '100%', width: '100%', marginBottom: '10px' },
     text: { marginRight: '10px' },
     input: { height: '100%', width: '20%' },
-    button: { height: '100%', width: '20%', color: 'green' },
-    update: { backgroundColor: 'yellow', float: 'right' as 'right', borderRadius: '5px', marginTop: 10 },
-    delete: { backgroundColor: 'red', float: 'left' as 'left', borderRadius: '5px', marginTop: 10, marginLeft: 5 },
-    buttons: { width: '150px', float: 'right' as 'right', marginRight: '50%', marginBottom: 10 }
-
+    button: { height: '100%', width: '20%' },
+    update: { float: 'right' as 'right' },
+    delete: { float: 'left' as 'left'},
+    buttons: { width: '200px', float: 'right' as 'right', marginRight: '50%', marginBottom: 10 },
 } 

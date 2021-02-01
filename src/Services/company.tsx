@@ -2,6 +2,7 @@ import request from '../utils/request';
 
 export default () => ({
     async createCompany(data:any){
+        console.log(data)
         try{
             const options ={
                 method:'POST',
@@ -15,7 +16,6 @@ export default () => ({
         }
     },
     async deleteCompany(data:any){
-        console.log('------',data._id)
         let companyId = data._id
         try{
             const options ={
@@ -30,7 +30,6 @@ export default () => ({
         }
     },
     async updateCompany(data:any){
-        console.log('------')
         try{
             const options ={
                 method:'PUT',
@@ -42,6 +41,33 @@ export default () => ({
         } catch(error){
             throw error;
         }
+    },
+    async createUser(data:any){
+        try{
+            const options = {
+                method:'POST',
+                body:JSON.stringify(data),
+            };
+            const response = await request(`/register/User`,options)
+            alert(JSON.stringify("User created successfully"));
+            return response;
+        } catch(error){
+            throw error;
+        }
+    },
+    async loginUser(data:any){
+        try{
+            const options = {
+                method:'GET',
+                // params:JSON.stringify(data),
+            };
+            const response = await request(`/login/User`,options)
+            alert(JSON.stringify("User Logged in successfully"));
+            return response;
+        } catch(error){
+            throw error;
+        }
+
     },
     async getCompany(){
         try{

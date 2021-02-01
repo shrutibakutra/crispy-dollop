@@ -6,11 +6,14 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import CompanyList from '../CompanyList/index'
 import { withRouter } from 'react-router-dom';
+import  BASE_URL from '../utils/request'
+
 
 
 const Company = (props: any, { history, match }: any) => {
-    // console.log("****")
     const { id } = props.match.params;
+
+    const [images , setImages ]:any =React.useState()
 
     const formik = useFormik({
         initialValues: {
@@ -35,9 +38,11 @@ const Company = (props: any, { history, match }: any) => {
             let _data = {
                 name: values.name,
                 email: values.email,
-                logo: values.logo,
+                logo: images,
                 websitelink: values.websitelink
             }
+
+            console.log(_data)
             await service.createCompany(_data)
             handlePassData()
 
@@ -54,15 +59,15 @@ const Company = (props: any, { history, match }: any) => {
     }
 
     const handleFileUpload = (event:any)=>{
-        
+        let img = event.target.files[0]
+        setImages(URL.createObjectURL(img))
     }
-
 
 
     return (
         <div>
             <form onSubmit={formik.handleSubmit}>
-                <div className="App" style={{ marginLeft: '10%' }}>
+                <div className="App" style={{ marginLeft: '5%' }}>
                     <h1>Company Form</h1>
                     <div style={styles.fields}>
                         <span style={styles.text}>Company Name:</span>
@@ -75,7 +80,10 @@ const Company = (props: any, { history, match }: any) => {
 
                     <div style={styles.fields}>
                         <span style={styles.text}>Logo:</span>
-                        <Form.Control id="file" name="logo" type="file" style={styles.input} onChange={formik.handleChange} className="form-control" />
+                        <Form.Control id="file" name="logo" type="file" style={styles.input} 
+                        onChange={(e)=>handleFileUpload(e)} 
+                        // onChange={formik.handleChange}
+                        className="form-control" />
                     </div>
                     <div style={styles.fields}>
                         <span style={styles.text}>Website:</span>
@@ -88,10 +96,7 @@ const Company = (props: any, { history, match }: any) => {
                     >Add and Next</Button>
 
                     <Link to={'/employees'}>
-                        <Button
-                            style={styles.button}
-                       
-                        > Employees</Button>
+                        <Button style={styles.button}> Employees</Button>
                     </Link>
                 </div>
             </form>
@@ -100,7 +105,7 @@ const Company = (props: any, { history, match }: any) => {
 
     )
 }
-
+    
 export default withRouter(Company);
 
 const styles = {
