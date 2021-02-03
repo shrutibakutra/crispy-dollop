@@ -8,9 +8,9 @@ import companyService from '../Services/company'
 import { setFlagsFromString } from 'v8';
 
 
-const LoginPage =(props:any)=>{
+const LoginPage = (props: any) => {
 
-    const [login , setLogin]=React.useState(false)
+    const [login, setLogin] = React.useState(false)
 
     const formik = useFormik({
         initialValues: {
@@ -19,7 +19,7 @@ const LoginPage =(props:any)=>{
 
         },
         onSubmit: values => {
-            alert(JSON.stringify(values, null, 2));
+            // alert(JSON.stringify(values, null, 2));
             loginUser(values)
         },
 
@@ -28,44 +28,50 @@ const LoginPage =(props:any)=>{
     const service = companyService()
 
     const loginUser = async (values: any) => {
-
         try {
-            let _data = {      
+            let _data = {
                 email: values.email,
                 password: values.password
             }
-            await service.loginUser(_data)
-            setLogin(true)
+             
+            let response = await service.loginUser(_data);
             
+           if (response.code==200){
+            setLogin(true)
             props.history.push('/Datatable')
+
+           }else{
+            alert(JSON.stringify("Incorrect email or password"));
+            
+           }
+
+
 
         } catch (error) {
             console.log(error)
         }
     }
-    
 
-    return(
-        <div style={{width:'50%',margin:'0 auto'}}>
+
+    return (
+        <div style={{ width: '50%', margin: '0 auto' }}>
             <h3>Login Here</h3>
             <Form onSubmit={formik.handleSubmit}>
                 <Form.Group controlId="formGroupEmail">
                     <Form.Label>Email address</Form.Label>
-                    <Form.Control name="email" type="email" placeholder="Enter email" onChange={formik.handleChange}/>
+                    <Form.Control name="email" type="email" placeholder="Enter email" onChange={formik.handleChange} />
                 </Form.Group>
                 <Form.Group controlId="formGroupPassword">
                     <Form.Label>Password</Form.Label>
-                    <Form.Control name="password" type="password" placeholder="Password" onChange={formik.handleChange}/>
+                    <Form.Control name="password" type="password" placeholder="Password" onChange={formik.handleChange} />
                 </Form.Group>
-                
-                {/* <Link to="/Datatable"> */}
-                    <Button type="submit" onClick={() => formik.handleSubmit} >Login</Button>
-                {/* </Link> */}
+
+                <Button type="submit" onClick={() => formik.handleSubmit} >Login</Button>
             </Form>
         </div>
     )
-      
-    
+
+
 
 }
 export default LoginPage;

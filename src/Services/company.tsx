@@ -58,11 +58,14 @@ export default () => ({
     async loginUser(data:any){
         try{
             const options = {
-                method:'GET',
-                // params:JSON.stringify(data),
+                method:'POST',
+                body:JSON.stringify(data),
             };
             const response = await request(`/login/User`,options)
-            alert(JSON.stringify("User Logged in successfully"));
+           
+            if (response.code ==200){
+                alert(JSON.stringify("User Logged in successfully"));
+            }
             return response;
         } catch(error){
             throw error;
